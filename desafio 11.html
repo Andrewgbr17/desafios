@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial=scale=1.0">
+    <title>Baskara</title>
+  </head>
+    <body>
+      <h1>Resolva a Baskara</h1>
+      <button onclick="Delta()"></button>
+      <section id="situacao">
+        <p> O resultado vai aparecer aqui...</p>
+      </section>
+
+<script>
+
+function Delta()  {
+     
+     let a = Number(window.prompt(`qual foi a primeira nota de ?`))
+     let b = Number(window.prompt(`qual foi a primeira nota de ?`))
+     let c = Number(window.prompt(`qual foi a primeira nota de ?`))
+    Delta = b*b-4*a*c
+
+    
+     let res = document.getElementById(`situacao`)
+     res.innerHTML =`<p>Calculando a  media final de <mark>${Delta}</mark}.</p>`
+  
+     }
+
+
+  
+
+       </script>
+</body>
+
+</html>

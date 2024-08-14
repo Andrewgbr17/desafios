@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <title>Aula Back-Ende 3º Ano - Polo Arapongas </title>
+</head>
+<body>
+    <h1>Calcule a Media:</h1>
+    <button onclick="validar()">Lançe as notas</button>
+    <script>
+        function validar() {
+            cont=1;
+            var media = 0;
+            let nome = window.prompt('Qual e o seu nome? ')
+            while( cont <=4){
+             var notas = parseFloat(prompt(`Qual a nota ${cont}?`))
+             media=media+notas;
+             cont ++
+            }
+           media=media/4
+           if (media >=60){
+               result=" aprovado"
+           }else{
+            result="reprovado"
+           }
+           window.alert(`o aluno ${nome},tem a media ${media}, e esta ${result}`);
+        }
+        </script>
+</body>
+</html>
+<style>
+    footer{ bottom:0; position: fixed;width: 100%; text-align: left;}
+</style>
+
+<h2> parseFloat e uma funcao incorporada no javascript que permite realizar essa conversao para um numero ponto flutuante  </h2>
+</footer>
+</html>
