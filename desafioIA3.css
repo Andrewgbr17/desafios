@@ -1,0 +1,40 @@
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom right, #808000, #ffd700); /* Gradiente verde oliva e amarelo ouro */
+    text-align: center;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.flag {
+    width: 200px;
+    border-radius: 10px;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.larger-image {
+    display: none;
+    width: 400px;
+    margin: 20px auto;
+}
+
+.hino-nacional {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 50px;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 10px;
+}
