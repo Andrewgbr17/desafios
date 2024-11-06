@@ -10,6 +10,13 @@ body {
     margin-top: 50px;
 }
 
+.column {
+    float: left;
+    width: 33.33%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
 .flag {
     width: 200px;
     border-radius: 10px;
