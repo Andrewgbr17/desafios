@@ -1,4 +1,5 @@
 function calcular() {
+    //Adicionar mais trabalhadores
     const nome = document.getElementById('nome').value;
     const salarioBruto = parseFloat(document.getElementById('salarioBruto').value);
 
