@@ -1,6 +1,5 @@
 function calcular() {
-    //Adicionar mais trabalhadores
-    const nome = document.getElementById('nome').value;
+    const nome = document.getElementById('nome').value; //Adicionar mais nomes
     const salarioBruto = parseFloat(document.getElementById('salarioBruto').value);
 
     const percentualImposto = 20; // Por exemplo, 20% de imposto
