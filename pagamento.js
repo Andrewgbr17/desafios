@@ -1,5 +1,5 @@
 let funcionarios = [];
-
+ 
 function adicionarFuncionario() {
     const nome = document.getElementById('nome').value;
     const salario = parseFloat(document.getElementById('salario').value);
