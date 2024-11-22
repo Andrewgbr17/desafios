@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Folha de Pagamento</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #0000FF, #FF0000); /* Gradiente de azul para vermelho */
+            color: white;
+            padding: 20px;
+            margin: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .logo {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 100px; /* Tamanho da logo */
+            height: auto;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+        }
+        .result p {
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <img src="logo.png" alt="Logo" class="logo"> <!-- Substitua "logo.png" pelo caminho correto da sua logo -->
+    
+    <div class="container">
+        <h1>Folha de Pagamento</h1>
+        <form id="paymentForm">
+            <label for="name">Nome:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="salary">Salário:</label>
+            <input type="number" id="salary" name="salary" required>
+
+            <button type="button" onclick="calcularFolha()">Calcular</button>
+        </form>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calcularFolha() {
+            // Obter valores do formulário
+            var nome = document.getElementById('name').value;
+            var salario = parseFloat(document.getElementById('salary').value);
+
+            if (isNaN(salario) || salario <= 0) {
+                alert('Por favor, insira um salário válido.');
+                return;
+            }
+
+            // Calcular imposto de renda com base no salário
+            var imposto = 0;
+
+            if (salario > 5000) {
+                imposto = salario * 0.175;
+            } else if (salario > 4000) {
+                imposto = salario * 0.12;
+            } else if (salario > 3000) {
+                imposto = salario * 0.075;
+            } else if (salario > 1800) {
+                imposto = salario * 0.035;
+            }
+
+            // Calcular salário líquido
+            var salarioLiquido = salario - imposto;
+
+            // Exibir resultados
+            var resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = `
+                <p><strong>Nome:</strong> ${nome}</p>
+                <p><strong>Salário Bruto:</strong> R$ ${salario.toFixed(2)}</p>
+                <p><strong>Imposto de Renda:</strong> R$ ${imposto.toFixed(2)}</p>
+                <p><strong>Salário Líquido:</strong> R$ ${salarioLiquido.toFixed(2)}</p>
+            `;
+        }
+    </script>
+</body>
+</html>
