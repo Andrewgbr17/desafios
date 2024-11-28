@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Folha de Pagamento</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #a304cf;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            font-size: 1.1em;
+            margin-bottom: 5px;
+            display: block;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            font-size: 1em;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .btn {
+            background-color: #c300ff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #680078;
+        }
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #ac00bb;
+            color: white;
+        }
+        td {
+            background-color: #f9f9f9;
+        }
+        .gradient-row {
+            background: linear-gradient(to right, #ff9a9e, #fecfef);
+        }
+        .gradient-row.high {
+            background: linear-gradient(to right, #ff6a00, #d15b00);
+        }
+        .gradient-row.medium {
+            background: linear-gradient(to right, #ffeb3b, #fdd835);
+        }
+        .gradient-row.low {
+            background: linear-gradient(to right, #66bb6a, #388e3c);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Folha de Pagamento</h1>
+    <form id="payrollForm">
+        <div class="form-group">
+            <label for="name">Nome do Trabalhador:</label>
+            <input type="text" id="name" required>
+        </div>
+        <div class="form-group">
+            <label for="salary">Salário:</label>
+            <input type="number" id="salary" step="0.01" required>
+        </div>
+        <button type="submit" class="btn">Calcular e Adicionar</button>
+    </form>
+
+    <table id="payrollTable">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Salário Bruto</th>
+                <th>Imposto (em R$)</th>
+                <th>Salário Líquido</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Dados dos trabalhadores serão inseridos aqui -->
+        </tbody>
+    </table>
+</div>
+
+<script>
+    // Função para calcular o percentual de imposto, valor do imposto e o salário líquido
+    function calcularSalario(salario) {
+        let percentualImposto = 0;
+        let imposto = 0;
+        let salarioLiquido = salario;
+
+        // Definindo o percentual de imposto com base no salário
+        if (salario > 5000) {
+            percentualImposto = 17.5;
+        } else if (salario > 4000) {
+            percentualImposto = 12;
+        } else if (salario > 3000) {
+            percentualImposto = 7.5;
+        } else if (salario > 1800) {
+            percentualImposto = 3.5;
+        } else {
+            percentualImposto = 0;
+        }
+
+        // Calculando o valor do imposto
+        imposto = salario * (percentualImposto / 100);
+        salarioLiquido = salario - imposto;
+
+        return { percentualImposto, imposto, salarioLiquido };
+    }
+
+    // Função para adicionar um novo trabalhador à tabela
+    function adicionarTrabalhador(nome, salario, imposto, salarioLiquido) {
+        const tabela = document.getElementById('payrollTable').getElementsByTagName('tbody')[0];
+        const novaLinha = tabela.insertRow();
+
+        // Definindo a classe de fundo gradiente com base no salário
+        let gradientClass = 'gradient-row';
+        if (salario > 5000) {
+            gradientClass += ' high';
+        } else if (salario > 4000) {
+            gradientClass += ' medium';
+        } else {
+            gradientClass += ' low';
+        }
+
+        // Criando as células para o nome, salário bruto, imposto e salário líquido
+        const celulaNome = novaLinha.insertCell(0);
+        celulaNome.textContent = nome;
+
+        const celulaSalarioBruto = novaLinha.insertCell(1);
+        celulaSalarioBruto.textContent = `R$ ${salario.toFixed(2)}`;
+
+        const celulaImposto = novaLinha.insertCell(2);
+        celulaImposto.textContent = `R$ ${imposto.toFixed(2)}`;
+
+        const celulaSalarioLiquido = novaLinha.insertCell(3);
+        celulaSalarioLiquido.textContent = `R$ ${salarioLiquido.toFixed(2)}`;
+
+        // Aplicando o fundo gradiente
+        novaLinha.classList.add(gradientClass);
+    }
+
+    // Evento do formulário para capturar os dados e adicionar à tabela
+    document.getElementById('payrollForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const nome = document.getElementById('name').value;
+        const salario = parseFloat(document.getElementById('salary').value);
+
+        if (nome && !isNaN(salario)) {
+            const { imposto, salarioLiquido } = calcularSalario(salario);
+            adicionarTrabalhador(nome, salario, imposto, salarioLiquido);
+
+            // Limpar os campos do formulário
+            document.getElementById('name').value = '';
+            document.getElementById('salary').value = '';
+        } else {
+            alert("Por favor, preencha todos os campos corretamente.");
+        }
+    });
+</script>
+
+</body>
+</html>
